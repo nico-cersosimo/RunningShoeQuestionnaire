@@ -1,0 +1,25 @@
+﻿@model Questionaire
+@{
+    ViewData["Title"] = "Questionaire";
+}
+
+<h1 style="font-family:Impact; text-align:center">Questions</h1>
+<hr />
+<form asp-controller="Home" asp-action="Submit" method="post">
+    <label asp-for="@Model.Terrain" style="display:block">What terrain do you perefer to run on?</label>
+    <select asp-for="@Model.Terrain" asp-items="@Questionaire.terrains"></select>
+    <label asp-for="@Model.FootShape" style="display:block">What is your foot shape?</label>
+    <select asp-for="@Model.FootShape" asp-items="@Questionaire.footShapes"></select>
+    <label asp-for="@Model.Design" style="display:block">What shoe design do you prefer?</label>
+    <select asp-for="@Model.Design" asp-items="@Questionaire.designs"></select>
+    <label asp-for="@Model.Color" style="display:block">Color preference?</label>
+    <select asp-for="@Model.Color" asp-items="@Questionaire.colors"></select>
+    <label asp-for="@Model.Cost" style="display:block">What range of cost are you willing to pay?</label>
+    <select asp-for="@Model.Cost" asp-items="@Questionaire.costs"></select>
+    <label asp-for="@Model.Popularity" style="display:block">What terrain do you perefer to run on?</label>
+    <select asp-for="@Model.Popularity" asp-items="@Questionaire.popularity"></select>
+    <label asp-for="@Model.BottomShape" style="display:block">What terrain do you perefer to run on?</label>
+    <select asp-for="@Model.BottomShape" asp-items="@Questionaire.bottomShape"></select>
+
+    <input type="submit" value="Submit" />
+</form>

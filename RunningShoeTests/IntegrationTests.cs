@@ -24,6 +24,7 @@ namespace RunningShoeTests
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 SqlCommand cmd = new SqlCommand("INSERT INTO brand VALUES ('Nico Shoes','1')", conn);
+                SqlCommand cmd2 = new SqlCommand("INSERT INTO questionaire VALUES ('Trail','Wide','Naturesque','Many Colors','Under $100','Popular','Curved','Nico')");
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -51,5 +52,11 @@ namespace RunningShoeTests
             }
             CollectionAssert.Contains(names, "Nico Shoes");
         }
+
+        //[TestMethod]
+        //public void QuestionaireTest()
+        //{
+        //    IQuestionaireDAL questionaireDAL = new QuestionaireDAL(connString);
+        //}
     }
 }
