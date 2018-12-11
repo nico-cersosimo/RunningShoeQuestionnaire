@@ -20,6 +20,8 @@
     <select asp-for="@Model.Popularity" asp-items="@Questionaire.popularity"></select>
     <label asp-for="@Model.BottomShape" style="display:block">What terrain do you perefer to run on?</label>
     <select asp-for="@Model.BottomShape" asp-items="@Questionaire.bottomShape"></select>
+    <label asp-for="@Model.Name" style="display:block">Please provide your first name:</label>
+    <input asp-for="@Model.Name" type="text" />
 
     <input type="submit" value="Submit" />
 </form>

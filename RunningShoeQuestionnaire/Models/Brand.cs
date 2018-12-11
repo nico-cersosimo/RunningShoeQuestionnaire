@@ -9,6 +9,14 @@ namespace RunningShoeQuestionaire.Models
     {
         public string Name { get; set; }
         public int AvgCost { get; set; }
-        public List<Brand> Brands { get; set; }
+
+        public static List<Brand> TrailAndTerrainFilter(Questionaire questionaire, List<Brand> brands)
+        {
+            if (questionaire.Terrain != null && (questionaire.Terrain.Equals("Trail") || questionaire.Terrain.Equals("All-Terrain")))
+            {
+                brands = brands.Where(x => x.Name != "Nike" && x.Name != "Adidas" && x.Name != "New Balance").ToList();
+            }
+            return brands;
+        }
     }
 }

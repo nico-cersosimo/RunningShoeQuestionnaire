@@ -8,6 +8,7 @@ namespace RunningShoeQuestionaire.Models
 {
     public class Questionaire
     {
+        public int QuestionaireID { get; set; }
         public string Terrain { get; set; }
         public string FootShape { get; set; }
         public string Design { get; set; }

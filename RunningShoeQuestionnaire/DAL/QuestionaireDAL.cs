@@ -16,8 +16,8 @@ namespace RunningShoeQuestionaire.DAL
             ConnString = connString;
         }
 
-        const string SQL_AddQuestionaire = @"INSERT INTO questionaire VALUES (@Terrain, @FootShape, @Design, @Color, @Cost, @Popularity, @BottomShape, @Name)";
-        const string SQL_GetLatestQuestionaire = @"SELECT TOP 1 * FROM questionaire ORDER BY questionaireID DESC";
+        const string SQL_AddQuestionaire = @"INSERT INTO questionaire VALUES (@Terrain, @FootShape, @Design, @Color, @Cost, @Popularity, @BottomShape, @Name); SELECT MAX(questionaireID) FROM questionaire";
+        const string SQL_GetQuestionaireByID = @"SELECT * FROM questionaire WHERE questionaireID = @questionaireID";
 
         public void AddQuestionaire(Questionaire questionaire)
         {
@@ -37,8 +37,9 @@ namespace RunningShoeQuestionaire.DAL
                     cmd.Parameters.AddWithValue("@BottomShape", questionaire.BottomShape);
                     cmd.Parameters.AddWithValue("@Name", questionaire.Name);
 
+
                     cmd.Connection = conn;
-                    cmd.ExecuteNonQuery();
+                    questionaire.QuestionaireID = Convert.ToInt32(cmd.ExecuteScalar());
                 }
             }
             catch (Exception)
@@ -48,9 +49,9 @@ namespace RunningShoeQuestionaire.DAL
             }
         }
 
-        public Questionaire GetLatestQuestionaire()
+        public Questionaire GetQuestionaireByID(int questionaireID)
         {
-            Questionaire latestQuestionaire = new Questionaire();
+            Questionaire questionaire = new Questionaire();
 
             try
             {
@@ -59,21 +60,22 @@ namespace RunningShoeQuestionaire.DAL
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand();
-                    cmd.CommandText = SQL_GetLatestQuestionaire;
+                    cmd.CommandText = SQL_GetQuestionaireByID;
                     cmd.Connection = conn;
-
+                    cmd.Parameters.AddWithValue("@questionaireID", questionaireID);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        latestQuestionaire.Terrain = Convert.ToString(reader["Terrain"]);
-                        latestQuestionaire.FootShape = Convert.ToString(reader["FootShape"]);
-                        latestQuestionaire.Design = Convert.ToString(reader["Design"]);
-                        latestQuestionaire.Color = Convert.ToString(reader["Color"]);
-                        latestQuestionaire.Cost = Convert.ToString(reader["Cost"]);
-                        latestQuestionaire.Popularity = Convert.ToString(reader["Popularity"]);
-                        latestQuestionaire.BottomShape = Convert.ToString(reader["BottomShape"]);
-                        latestQuestionaire.Name = Convert.ToString(reader["Name"]);
+                        questionaire.Terrain = Convert.ToString(reader["Terrain"]);
+                        questionaire.FootShape = Convert.ToString(reader["FootShape"]);
+                        questionaire.Design = Convert.ToString(reader["Design"]);
+                        questionaire.Color = Convert.ToString(reader["Color"]);
+                        questionaire.Cost = Convert.ToString(reader["Cost"]);
+                        questionaire.Popularity = Convert.ToString(reader["Popularity"]);
+                        questionaire.BottomShape = Convert.ToString(reader["BottomShape"]);
+                        questionaire.Name = Convert.ToString(reader["Name"]);
+                        questionaire.QuestionaireID = Convert.ToInt32(reader["questionaireID"]);
                     }
                 }
             }
@@ -83,7 +85,7 @@ namespace RunningShoeQuestionaire.DAL
                 throw;
             }
 
-            return latestQuestionaire;
+            return questionaire;
         }
     }
 }

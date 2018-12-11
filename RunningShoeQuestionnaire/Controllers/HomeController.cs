@@ -33,15 +33,17 @@ namespace RunningShoeQuestionaire.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Submit(Questionaire questionaire)
-        {
-            //questionaire = 
-            return RedirectToAction("Results");
+        { 
+            questionaireDAL.AddQuestionaire(questionaire);
+            return RedirectToAction("Results", new { questionaireID = questionaire.QuestionaireID });
         }
 
         [HttpGet]
-        public IActionResult Results()
+        public IActionResult Results(int questionaireID)
         {
             var brands = brandDAL.GetAllBrands();
+            var questionaire = questionaireDAL.GetQuestionaireByID(questionaireID);
+            brands = Brand.TrailAndTerrainFilter(questionaire, brands);
             return View(brands);
         }
 

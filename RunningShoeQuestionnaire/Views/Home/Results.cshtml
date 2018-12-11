@@ -6,13 +6,8 @@
 <h2>Results</h2>
 
 @{
-    Questionaire questionaire = new Questionaire();
-    if (questionaire.Terrain != null && (questionaire.Terrain.Equals("Trail") || questionaire.Terrain.Equals("All-Terrain")))
+    foreach (var item in Model)
     {
-        var trailAndAllTerrainFilter = Model.Where(x => x.Name != "Nike" && x.Name != "Adidas" && x.Name != "New Balance").ToList();
-        foreach (var item in trailAndAllTerrainFilter)
-        {
-            <p>@item.Name | @item.AvgCost</p>
-        }
+        <p>@item.Name | @item.AvgCost</p>
     }
 }

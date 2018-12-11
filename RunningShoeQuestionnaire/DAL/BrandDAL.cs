@@ -10,7 +10,6 @@ namespace RunningShoeQuestionaire.DAL
     public class BrandDAL : IBrandDAL
     {
         private string ConnString;
-        Brand brand = new Brand();
 
         public BrandDAL(string connString)
         {
@@ -38,6 +37,7 @@ namespace RunningShoeQuestionaire.DAL
                     // Loop through each row
                     while (reader.Read())
                     {
+                        Brand brand = new Brand();
                         brand.Name = Convert.ToString(reader["brandName"]);
                         brand.AvgCost = Convert.ToInt32(reader["avgCost"]);
 
@@ -49,7 +49,6 @@ namespace RunningShoeQuestionaire.DAL
             {
                 throw;
             }
-            brand.Brands = output;
             return output;
         }
     }

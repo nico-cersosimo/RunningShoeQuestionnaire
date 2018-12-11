@@ -12,6 +12,6 @@ namespace RunningShoeQuestionaire.DAL
     public interface IQuestionaireDAL
     {
         void AddQuestionaire(Questionaire questionaire);
-        Questionaire GetLatestQuestionaire();
+        Questionaire GetQuestionaireByID(int questionaireID);
     }
 }
